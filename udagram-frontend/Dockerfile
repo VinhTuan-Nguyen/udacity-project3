@@ -2,6 +2,7 @@
 FROM beevelop/ionic:latest AS ionic
 ## Create app directory
 WORKDIR /usr/src/app
+ENV NODE_OPTIONS=--openssl-legacy-provider
 ## Install app dependencies
 ## A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
