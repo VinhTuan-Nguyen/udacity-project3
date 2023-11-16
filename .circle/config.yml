@@ -1,0 +1,40 @@
+version: 2.1
+
+jobs:
+  deploy-dockerhub:
+      machine:
+        image: ubuntu-2204:2022.04.2
+      steps:
+        - checkout
+        - run:
+            name: Login to dockerhub
+            command: |
+              echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
+        - run:
+            name: Deploy Image To Dockerhub
+            command: |
+              docker build -t udagram-api-feed ./udagram-api-feed
+              docker tag udagram-api-feed vintuanbm/udagram-api-feed:v1.0.0
+              docker push vintuanbm/udagram-api-feed:v1.0.0
+        - run:
+            name: Deploy Image To Dockerhub
+            command: |
+              docker build -t udagram-api-user ./udagram-api-user
+              docker tag udagram-api-user vintuanbm/udagram-api-user:v1.0.0
+              docker push vintuanbm/udagram-api-user:v1.0.0
+        - run:
+            name: Deploy Image To Dockerhub
+            command: |
+              docker build -t udagram-frontend ./udagram-frontend
+              docker tag udagram-frontend vintuanbm/udagram-frontend:v1.0.0
+              docker push vintuanbm/udagram-frontend:v1.0.0
+        - run:
+            name: Deploy Image To Dockerhub
+            command: |
+              docker build -t udagram-reverseproxy ./udagram-reverseproxy
+              docker tag udagram-reverseproxy vintuanbm/udagram-reverseproxy:v1.0.0
+              docker push vintuanbm/udagram-reverseproxy:v1.0.0
+workflows:
+  default:
+    jobs:
+      - deploy-dockerhub
