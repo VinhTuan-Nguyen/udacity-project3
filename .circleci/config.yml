@@ -33,7 +33,7 @@ jobs:
             command: |
               docker build -t udagram-reverseproxy ./udagram-reverseproxy
               docker tag udagram-reverseproxy vinhtuanbm/udagram-reverseproxy:v1.0.0
-              docker push vintuanbm/udagram-reverseproxy:v1.0.0
+              docker push vinhtuanbm/udagram-reverseproxy:v1.0.0
 workflows:
   default:
     jobs:
