@@ -14,25 +14,25 @@ jobs:
             name: Deploy Image To Dockerhub
             command: |
               docker build -t udagram-api-feed ./udagram-api-feed
-              docker tag udagram-api-feed vintuanbm/udagram-api-feed:v1.0.0
-              docker push vintuanbm/udagram-api-feed:v1.0.0
+              docker tag udagram-api-feed vinhtuanbm/udagram-api-feed:v1.0.0
+              docker push vinhtuanbm/udagram-api-feed:v1.0.0
         - run:
             name: Deploy Image To Dockerhub
             command: |
               docker build -t udagram-api-user ./udagram-api-user
-              docker tag udagram-api-user vintuanbm/udagram-api-user:v1.0.0
-              docker push vintuanbm/udagram-api-user:v1.0.0
+              docker tag udagram-api-user vinhtuanbm/udagram-api-user:v1.0.0
+              docker push vinhtuanbm/udagram-api-user:v1.0.0
         - run:
             name: Deploy Image To Dockerhub
             command: |
               docker build -t udagram-frontend ./udagram-frontend
-              docker tag udagram-frontend vintuanbm/udagram-frontend:v1.0.0
-              docker push vintuanbm/udagram-frontend:v1.0.0
+              docker tag udagram-frontend vinhtuanbm/udagram-frontend:v1.0.0
+              docker push vinhtuanbm/udagram-frontend:v1.0.0
         - run:
             name: Deploy Image To Dockerhub
             command: |
               docker build -t udagram-reverseproxy ./udagram-reverseproxy
-              docker tag udagram-reverseproxy vintuanbm/udagram-reverseproxy:v1.0.0
+              docker tag udagram-reverseproxy vinhtuanbm/udagram-reverseproxy:v1.0.0
               docker push vintuanbm/udagram-reverseproxy:v1.0.0
 workflows:
   default:
