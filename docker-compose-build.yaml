@@ -15,4 +15,4 @@ services:
   frontend:
     build:
       context: ./udagram-frontend
-    image: vinhtuanbm/udagram-frontend:local
+    image: vinhtuanbm/udagram-frontend

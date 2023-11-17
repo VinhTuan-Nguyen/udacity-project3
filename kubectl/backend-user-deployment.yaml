@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-user-service
+  labels:
+    app: backend-user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-user-service
+  template:
+    metadata:
+      labels:
+        app: backend-user-service
+    spec:
+      containers:
+      - name: udagram-api-user
+        image: vinhtuanbm/udagram-api-user:v1.0.0
+        env:
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-environment-variables
+              key:  POSTGRES_HOST
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-environment-variables
+              key: POSTGRES_DB
+        - name: URL
+          valueFrom:
+            configMapKeyRef:
+              name: microservices-environment-variables
+              key:  URL
+
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: secret-environment-variables
+              key: POSTGRES_USERNAME
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secret-environment-variables
+              key: POSTGRES_PASSWORD
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: secret-environment-variables
+              key: JWT_SECRET
+
+        - name: AWS_BUCKET
+          valueFrom:
+            secretKeyRef:
+              name: secret-aws-credential-variables
+              key:  AWS_BUCKET
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: secret-aws-credential-variables
+              key: AWS_REGION
+        - name: AWS_PROFILE
+          valueFrom:
+            secretKeyRef:
+              name: secret-aws-credential-variables
+              key: AWS_PROFILE
+
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: aws-secret
+          mountPath: "/root/.aws/"
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+      - name: aws-secret
+        secret:
+          secretName: secret-aws-credential-variables
